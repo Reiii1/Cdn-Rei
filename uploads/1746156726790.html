@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Upload File To GitHub</title>
+
+  <!-- Tailwind 3 CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class'
+    }
+
+    // Dark mode preference
+    if (
+      localStorage.theme === 'dark' ||
+      (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+    ) {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
+  </script>
+
+  <link rel="icon" href="https://i.pinimg.com/736x/0d/71/2a/0d712a0b6805c0b44386339048bdfce5.jpg?format=png&name=900x900">
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 p-4 transition-colors duration-300 min-h-screen">
+
+  <!-- Toggle Theme -->
+  <div class="flex justify-end mb-4">
+    <button id="themeToggle" class="text-2xl p-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition">
+      🌙
+    </button>
+  </div>
+
+  <!-- GIF -->
+  <div class="flex justify-center my-4">
+    <img src="https://media.tenor.com/yWaLIc5J9WgAAAAj/momoi.gif" class="w-1/2 max-w-xs sm:max-w-sm rounded" alt="Momoi" />
+  </div>
+
+  <!-- Upload Box -->
+  <div class="w-full max-w-xs sm:max-w-md md:max-w-lg mx-auto bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
+    <h1 class="text-2xl sm:text-3xl font-semibold text-center mb-6">Upload File to GitHub</h1>
+    <form id="uploadForm" action="/upload" method="post" enctype="multipart/form-data" class="space-y-4">
+      <div>
+        <label for="file" class="block font-medium">Select a file</label>
+        <input type="file" name="file" id="file" class="mt-2 p-2 border border-gray-300 dark:border-gray-600 rounded-md w-full bg-white dark:bg-gray-700 text-black dark:text-white" />
+      </div>
+      <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400">
+        Upload File
+      </button>
+
+      <!-- Loading spinner -->
+      <div id="loading" class="hidden text-center mt-4">
+        <svg role="status" class="inline w-8 h-8 text-gray-200 animate-spin fill-blue-600" viewBox="0 0 100 101">
+          <path d="M99 50.5C99 78.2 77.7 100 50 100C22.3 100 1 78.2 1 50.5C1 22.8 22.3 1 50 1C77.7 1 99 22.8 99 50.5Z" />
+        </svg>
+        <p class="mt-2">Uploading...</p>
+      </div>
+    </form>
+  </div>
+
+  <!-- Portfolio Badge -->
+  <div class="flex justify-center mt-6">
+    <a href="https://portofolio.reiicode.my.id/">
+      <img title="Website" src="https://img.shields.io/badge/PORTOFOLIO-gray.svg?style=for-the-badge&logo=internetexplorer&logoColor=white" alt="Website">
+    </a>
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    const form = document.getElementById('uploadForm');
+    const loading = document.getElementById('loading');
+    const toggleBtn = document.getElementById('themeToggle');
+
+    form.addEventListener('submit', function () {
+      loading.classList.remove('hidden');
+    });
+
+    toggleBtn.addEventListener('click', () => {
+      const html = document.documentElement;
+      const isDark = html.classList.toggle('dark');
+      localStorage.theme = isDark ? 'dark' : 'light';
+      toggleBtn.textContent = isDark ? '☀️' : '🌙';
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      toggleBtn.textContent = document.documentElement.classList.contains('dark') ? '☀️' : '🌙';
+    });
+  </script>
+
+</body>
+</html>
